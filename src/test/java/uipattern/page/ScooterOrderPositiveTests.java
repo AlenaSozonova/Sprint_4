@@ -17,9 +17,9 @@ public class ScooterOrderPositiveTests {
 
     @Before
     public void setup() {
-          WebDriverManager.chromedriver().setup();
-          System.setProperty("webdriver.chrome.driver","C:\\WebDriver\\bin\\chromedriver_win32\\chromedriver.exe");
-          driver = new ChromeDriver();
+        WebDriverManager.chromedriver().setup();
+        System.setProperty("webdriver.chrome.driver","C:\\WebDriver\\bin\\chromedriver_win32\\chromedriver.exe");
+        driver = new ChromeDriver();
 
     //   System.setProperty("webdriver.gecko.driver","C:\\WebDriver\\bin\\geckodriver\\geckodriver.exe");
     //   driver = new FirefoxDriver();
@@ -32,8 +32,7 @@ public class ScooterOrderPositiveTests {
         ScooterOrderMainPage objScooterOrderUp = new ScooterOrderMainPage(driver);
         objScooterOrderUp.openMainPage();
         objScooterOrderUp.scooterOrderUp("Иван", "Иванов","Центр","89999999999");
-        String actual = driver.findElement(By.cssSelector(".Order_ModalHeader__3FDaJ")).getText();
-        assertTrue(actual.contains("Заказ оформлен"));
+        assertTrue(objScooterOrderUp.getActualText().contains("Заказ оформлен"));
     }
 
     //Тест позитивного сценария заказа самоката на нижнюю кнопку Заказать
@@ -42,8 +41,7 @@ public class ScooterOrderPositiveTests {
         ScooterOrderMainPage objScooterOrderDown = new ScooterOrderMainPage(driver);
         objScooterOrderDown.openMainPage();
         objScooterOrderDown.scooterOrderDown("Петр", "Петров","Окраина","89991110000");
-        String actual = driver.findElement(By.cssSelector(".Order_ModalHeader__3FDaJ")).getText();
-        assertTrue(actual.contains("Заказ оформлен"));
+        assertTrue(objScooterOrderDown.getActualText().contains("Заказ оформлен"));
     }
 
 

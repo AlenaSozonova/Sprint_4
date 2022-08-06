@@ -9,9 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
-public class ScooterOrderMainPage {
-
-    private WebDriver driver;
+public class ScooterOrderMainPage extends MainPageWait {
 
     //локаторы кнопки Заказать
     //локатор верхней кнопки Заказать
@@ -118,16 +116,26 @@ public class ScooterOrderMainPage {
     public void scooterOrderUp(String name, String surname, String address, String phone) {
         waitForLoadCSS(orderButtonUp);
         clickOrderButtonUp();
-        setInputsValues(name, surname, address, phone);
-        setMetroStation();
-        clickThenButton();
+        setUserData(name, surname, address, phone);
+        setScooterDelivery();
+        clickOrderButtonUpYes();
+        waitForLoadCSS(orderText);
+
+    }
+
+    // метод ввода данных о доставке и самокате
+    private void setScooterDelivery() {
         setDate();
         setDay();
         setColor();
         clickOrderButton();
-        clickOrderButtonUpYes();
-        waitForLoadCSS(orderText);
+    }
 
+    // метод ввода данных о пользователе
+    private void setUserData(String name, String surname, String address, String phone) {
+        setInputsValues(name, surname, address, phone);
+        setMetroStation();
+        clickThenButton();
     }
 
 
@@ -138,21 +146,14 @@ public class ScooterOrderMainPage {
         WebElement element = driver.findElement(orderButtonDown);
         ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", element);
         clickOrderButtonDown();
-        setInputsValues(name, surname, address, phone);
-        setMetroStation();
-        clickThenButton();
-        setDate();
-        setDay();
-        setColor();
-        clickOrderButton();
+        setUserData(name, surname, address, phone);
+        setScooterDelivery();
         clickOrderButtonUpYes();
         waitForLoadCSS(orderText);
     }
 
-    // метод ожидания появления элемента
-    private void waitForLoadCSS(By cssSelector) {
-        new WebDriverWait(driver, 3)
-                .until(ExpectedConditions.visibilityOfElementLocated(cssSelector));
+    // метод получения текста элемента
+    public String getActualText() {
+        return driver.findElement(orderText).getText();
     }
 }
-

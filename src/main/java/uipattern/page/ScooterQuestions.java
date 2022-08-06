@@ -8,9 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
-public class ScooterQuestions {
-
-    private WebDriver driver;
+public class ScooterQuestions extends MainPageWait {
 
     //локаторы кнопки с вопросами
     private By questionButton = By.cssSelector(".accordion__button");
@@ -44,20 +42,9 @@ public class ScooterQuestions {
         this.questions = By.id(templateQuestions.concat(numberOfAccordind));
     }
 
-    // метод ожидания появления элемента по css
-    private void waitForLoadCSS(By cssSelector) {
-        new WebDriverWait(driver, 3)
-                .until(ExpectedConditions.visibilityOfElementLocated(cssSelector));
-    }
-
-    // метод ожидания появления элемента по id
-    private void waitForLoadID(By id) {
-        new WebDriverWait(driver, 3)
-                .until(ExpectedConditions.visibilityOfElementLocated(id));
-    }
 
     // объединенный метод получения ответов на вопросы
-    public String getScooterAnswers() {
+    public String getScooterAnswers()  {
         waitForLoadCSS(questionButton);
         WebElement element = driver.findElement(questionButton);
         ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", element);
